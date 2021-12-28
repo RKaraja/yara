@@ -37,6 +37,9 @@ class _BodyState extends State<Body> {
       case "store":
         Get.to(Store());
         break;
+      case "payment":
+        Get.to(PaymentMethod());
+        break;
       case "signout":
         _signOut();
         break;
