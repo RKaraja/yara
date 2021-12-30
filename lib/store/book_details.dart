@@ -110,7 +110,9 @@ class BookDetails extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return Library();
+                              return Library(
+                                selectedPage: 0,
+                              );
                             },
                           ),
                         );

@@ -18,7 +18,9 @@ class Wrapper extends StatelessWidget {
     if (userapp == null) {
       return Welcome();
     } else {
-      return Library();
+      return Library(
+        selectedPage: 0,
+      );
     }
   }
 }

@@ -48,7 +48,7 @@ class BookSearch extends SearchDelegate<String> {
           controller: controller,
           product: controller.products.keys.toList()[index],
           quantity: controller.products.values.toList()[index],
-          index: index,
+          index: index, bookmarkController: bookmarkController,
           //bookmarkController: bookmarkController,
         );
       },
@@ -71,7 +71,7 @@ class BookSearch extends SearchDelegate<String> {
           product: controller.products.keys.toList()[index],
           quantity: controller.products.values.toList()[index],
           index: index,
-          //bookmarkController: bookmarkController,
+          bookmarkController: bookmarkController,
         );
       },
     );

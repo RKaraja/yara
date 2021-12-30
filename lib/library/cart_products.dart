@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:yara/components/constants.dart';
 import 'package:yara/library/continue_reading.dart';
@@ -8,11 +9,13 @@ import 'package:yara/library/pdf_viewer.dart';
 import 'package:yara/store/add_controller.dart';
 import 'package:yara/store/book_controller.dart';
 import 'package:yara/store/book_data.dart';
+import 'package:yara/store/book_details.dart';
 
 class CartProducts extends StatelessWidget {
   final AddController controller = Get.find();
-  final BookController bookController = Get.find();
-  //final BookmarkController bookmarkController = Get.find();
+  final addBook = Get.put(BookmarkController());
+  //final BookController bookController = Get.find();
+  final BookmarkController bookmarkController = Get.find();
   final index;
   CartProducts({Key? key, this.index}) : super(key: key);
 
@@ -64,8 +67,7 @@ class CartProducts extends StatelessWidget {
                           product: controller.products.keys.toList()[index],
                           quantity: controller.products.values.toList()[index],
                           index: index,
-                          //bookmarkController: bookmarkController,
-                          //number: 0,
+                          bookmarkController: addBook,
                         );
                       },
                     ),
@@ -82,12 +84,11 @@ class CartProducts extends StatelessWidget {
 }
 
 class CartProductCard extends StatelessWidget {
-  final addController = Get.put(AddController());
-  final BookmarkController addBook = Get.put(BookmarkController());
-  final BookmarkController bookmarkController = Get.find();
+  //final addController = Get.put(AddController());
+  //final addBook = Get.put(BookmarkController());
+  final BookmarkController bookmarkController;
   final BookController bookController = Get.find();
   final AddController controller;
-  //final BookmarkController bookmarkController;
   final Product product;
   final int quantity;
   final int index;
@@ -97,8 +98,7 @@ class CartProductCard extends StatelessWidget {
     required this.product,
     required this.quantity,
     required this.index,
-    //required this.bookmarkController,
-    //required this.number,
+    required this.bookmarkController,
   }) : super(key: key);
 
   @override
@@ -106,16 +106,13 @@ class CartProductCard extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
-        addBook.addBookmark(bookController.products[index]);
+        bookmarkController.addBookmark(bookController.products[index]);
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
               return PDFBook(
-                //bookmarkController: bookmarkController,
                 index: index,
-                //bookController: bookController,
-                //page: page,
               );
             },
           ),
@@ -151,7 +148,6 @@ class CartProductCard extends StatelessWidget {
                         child: IconButton(
                           onPressed: () {
                             controller.removeProduct(product);
-                            //controller.removeProduct(product);
                             bookmarkController.removeBookmark(product);
                             ContinueReading(
                               index: index,

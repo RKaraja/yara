@@ -10,11 +10,8 @@ import 'package:yara/store/book_controller.dart';
 import 'package:yara/store/book_data.dart';
 
 class ContinueReading extends StatelessWidget {
-  //final BookController bookController = Get.find();
   final AddController controller = Get.find();
   final BookmarkController bookmarkController = Get.find();
-  //final BookmarkController book = BookmarkController();
-  //late int number = number;
   final index;
   ContinueReading({Key? key, this.index}) : super(key: key);
 
@@ -58,16 +55,16 @@ class ContinueReading extends StatelessWidget {
                 child: LayoutBuilder(builder: (context, constraint) {
                   return Obx(
                     () => ListView.builder(
-                      itemCount: bookmarkController.products.length,
+                      itemCount: bookmarkController.bookProducts.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, int index) {
                         return ContinueCard(
-                          //controller: controller,
-                          product: controller.products.keys.toList()[index],
-                          quantity: bookmarkController.products.values
+                          product: bookmarkController.bookProducts.keys
+                              .toList()[index],
+                          quantity: bookmarkController.bookProducts.values
                               .toList()[index],
                           index: index,
-                          bController: bookmarkController,
+                          bookmarkController: bookmarkController,
                         );
                       },
                     ),
@@ -85,15 +82,13 @@ class ContinueReading extends StatelessWidget {
 
 class ContinueCard extends StatelessWidget {
   final BookController bookController = Get.put(BookController());
+
   final AddController addController = Get.find();
-  final BookmarkController bookmarkController = Get.find();
-  //final BookmarkController _bookmarkController = BookmarkController();
+  final BookmarkController bookmarkController;
   final Product product;
   final int quantity;
-  final index;
-  //final BookmarkController controller;
-  //final AddController controller;
-  final BookmarkController bController;
+  final int index;
+  //final BookmarkController bController;
   //final int page;
   ContinueCard({
     Key? key,
@@ -101,7 +96,7 @@ class ContinueCard extends StatelessWidget {
     required this.product,
     required this.quantity,
     required this.index,
-    required this.bController,
+    required this.bookmarkController,
     //AddController? controller,
     //required this.page,
   }) : super(key: key);
@@ -113,9 +108,6 @@ class ContinueCard extends StatelessWidget {
       onTap: () => Get.to(
         () => PDFBook(
           index: index,
-          //bookController: bookController,
-          //controller: addController,
-          //page: PDFBook.page,
         ),
       ),
       child: Column(

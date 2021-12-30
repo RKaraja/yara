@@ -6,6 +6,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:yara/library/library.dart';
 import 'package:yara/login/login.dart';
+import 'package:yara/settings/payment_method.dart';
+import 'package:yara/settings/settings.dart';
 import 'package:yara/signup/sign.dart';
 import 'package:yara/store/store.dart';
 import 'package:yara/welcome/background.dart';
@@ -29,19 +31,31 @@ class _BodyState extends State<Body> {
         Get.to(Sign());
         break;
       case "library":
-        Get.to(Library());
+        Get.to(PaymentMethod());
+        Get.to(Library(
+          selectedPage: 0,
+        ));
         break;
       case "welcome":
         Get.to(Welcome());
         break;
-      case "store":
-        Get.to(Store());
+      case "signout":
+        _signOut();
         break;
       case "payment":
         Get.to(PaymentMethod());
         break;
-      case "signout":
-        _signOut();
+      case "settings":
+        Get.to(PaymentMethod());
+        Get.to(Library(
+          selectedPage: 2,
+        ));
+        break;
+      case "store":
+        Get.to(PaymentMethod());
+        Get.to(Library(
+          selectedPage: 1,
+        ));
         break;
       default:
         debugPrint("Unknown command");
@@ -67,9 +81,9 @@ class _BodyState extends State<Body> {
       if (state.name == "ONLINE" && !_greetingIsPlayed) {
         _greetingIsPlayed = true;
         AlanVoice.activate();
-        AlanVoice.playText("Welcome to Yara app."
-            "If you want to login say go to login page."
-            "If you want to sign up say go to sign up page.");
+        AlanVoice.playText("Welcome to Yara app. "
+            "If you want to login say login."
+            "If you want to sign up say sign up.");
       }
     });
   }

@@ -13,6 +13,7 @@ import 'package:yara/store/book_products.dart';
 import 'package:yara/store/search_page.dart';
 
 class Store extends StatefulWidget {
+  static const routeName = "/store";
   Store({Key? key}) : super(key: key);
 
   @override

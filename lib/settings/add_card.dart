@@ -1,90 +1,17 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:yara/components/constants.dart';
 import 'package:yara/components/rounded_button.dart';
 import 'package:yara/settings/card_details.dart';
-
-// class CardTextField extends StatelessWidget {
-//   const CardTextField({
-//     required String hintText,
-//     EdgeInsets padding = const EdgeInsets.only(left: 40),
-//     Key? key,
-//   })  : _hintText = hintText,
-//         _padding = padding,
-//         super(key: key);
-//
-//   final String _hintText;
-//   final EdgeInsets _padding;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: double.infinity,
-//       height: 50,
-//       decoration: ShapeDecoration(
-//         color: kWhiteLightest,
-//         shape: StadiumBorder(),
-//       ),
-//       child: TextField(
-//         decoration: InputDecoration(
-//           border: InputBorder.none,
-//           hintText: _hintText,
-//           hintStyle: TextStyle(
-//             color: Colors.black26,
-//           ),
-//           contentPadding: _padding,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class NumTextField extends StatelessWidget {
-//   const NumTextField({
-//     required String hintText,
-//     EdgeInsets padding = const EdgeInsets.only(left: 40),
-//     Key? key,
-//   })  : _hintText = hintText,
-//         _padding = padding,
-//         super(key: key);
-//
-//   final String _hintText;
-//   final EdgeInsets _padding;
-//   TextEditingController _cardNumber = TextEditingController();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: double.infinity,
-//       height: 50,
-//       decoration: ShapeDecoration(
-//         color: kWhiteLightest,
-//         shape: StadiumBorder(),
-//       ),
-//       child: TextField(
-//         decoration: InputDecoration(
-//           border: InputBorder.none,
-//           hintText: _hintText,
-//           hintStyle: TextStyle(
-//             color: Colors.black26,
-//           ),
-//           contentPadding: _padding,
-//         ),
-//         keyboardType: TextInputType.number,
-//       ),
-//     );
-//   }
-// }
 
 class FormScreen extends StatefulWidget {
   @override
   _FormScreenState createState() => _FormScreenState();
 }
 
-StreamController<CardDetails> events = StreamController<CardDetails>();
+StreamController<CardDetails> events =
+    StreamController<CardDetails>.broadcast();
 
 class _FormScreenState extends State<FormScreen> {
   late String NewFName;
