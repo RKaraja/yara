@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:yara/library/cart_products.dart';
 import 'package:yara/store/book_controller.dart';
+import 'package:yara/store/book_details.dart';
 
 import 'add_controller.dart';
 

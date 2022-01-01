@@ -4,11 +4,14 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:yara/components/constants.dart';
 import 'package:yara/components/rounded_button.dart';
 import 'package:yara/library/library.dart';
+import 'package:yara/store/book_data.dart';
 import 'add_controller.dart';
 import 'book_controller.dart';
 
 class BookDetails extends StatelessWidget {
   final addController = Get.put(AddController());
+  final AddController controller = Get.find();
+  final addBookmark = Get.put(BookmarkController());
   final BookController bookController = Get.find();
   final int index;
   BookDetails({
@@ -104,6 +107,7 @@ class BookDetails extends StatelessWidget {
                     RoundedButton(
                       text: 'PURCHASE',
                       press: () {
+                        //controller.addProduct(product);
                         addController
                             .addProduct(bookController.products[index]);
                         Navigator.push(

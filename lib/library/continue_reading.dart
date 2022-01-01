@@ -57,13 +57,15 @@ class ContinueReading extends StatelessWidget {
                     () => ListView.builder(
                       itemCount: bookmarkController.bookProducts.length,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, int index) {
+                      itemBuilder: (BuildContext context, int index) {
                         return ContinueCard(
                           product: bookmarkController.bookProducts.keys
                               .toList()[index],
                           quantity: bookmarkController.bookProducts.values
                               .toList()[index],
                           index: index,
+                          count: bookmarkController.bookProducts.keys
+                              .toList()[index],
                           bookmarkController: bookmarkController,
                         );
                       },
@@ -81,18 +83,20 @@ class ContinueReading extends StatelessWidget {
 }
 
 class ContinueCard extends StatelessWidget {
-  final BookController bookController = Get.put(BookController());
+  final BookController bookController = Get.find();
 
   final AddController addController = Get.find();
   final BookmarkController bookmarkController;
   final Product product;
   final int quantity;
   final int index;
+  final Product count;
   //final BookmarkController bController;
   //final int page;
   ContinueCard({
     Key? key,
     //required this.controller,
+    required this.count,
     required this.product,
     required this.quantity,
     required this.index,
@@ -107,6 +111,7 @@ class ContinueCard extends StatelessWidget {
     return InkWell(
       onTap: () => Get.to(
         () => PDFBook(
+          product: product,
           index: index,
         ),
       ),

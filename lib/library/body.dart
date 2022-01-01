@@ -4,6 +4,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:yara/library/continue_reading.dart';
 import 'package:yara/store/add_controller.dart';
 import 'package:yara/library/cart_products.dart';
+import 'package:yara/store/book_details.dart';
 
 class Body extends StatelessWidget {
   Body({

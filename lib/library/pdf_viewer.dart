@@ -7,13 +7,16 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:yara/components/constants.dart';
 import 'package:yara/store/add_controller.dart';
 import 'package:yara/store/book_controller.dart';
+import 'package:yara/store/book_data.dart';
 
 class PDFBook extends StatefulWidget {
   final int index;
+  final Product product;
 
   PDFBook({
     Key? key,
     required this.index,
+    required this.product,
   }) : super(key: key);
 
   @override
@@ -40,7 +43,7 @@ class _PDFBookState extends State<PDFBook> {
     return SafeArea(
       child: Scaffold(
         body: SfPdfViewer.network(
-          bookController.products[widget.index].ePubBook,
+          widget.product.ePubBook,
           controller: _pdfViewerController,
           key: _pdfViewerStateKey,
           pageLayoutMode: PdfPageLayoutMode.single,

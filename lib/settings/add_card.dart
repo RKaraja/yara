@@ -20,6 +20,14 @@ class _FormScreenState extends State<FormScreen> {
   late String NewCVV;
   late String NewMM;
   late String NewYY;
+  TextEditingController _FName = new TextEditingController();
+  TextEditingController _LName = new TextEditingController();
+  TextEditingController _CardNumber = new TextEditingController();
+  TextEditingController _CVV = new TextEditingController();
+  TextEditingController _MM = new TextEditingController();
+  TextEditingController _YY = new TextEditingController();
+  final _cardKey = GlobalKey<FormState>();
+  String error = '';
 
   @override
   Widget BFName() {
@@ -33,6 +41,7 @@ class _FormScreenState extends State<FormScreen> {
         borderRadius: BorderRadius.circular(29),
       ),
       child: TextFormField(
+        controller: _FName,
         decoration: InputDecoration(
           hintText: 'First Name',
           border: InputBorder.none,
@@ -61,6 +70,7 @@ class _FormScreenState extends State<FormScreen> {
         borderRadius: BorderRadius.circular(29),
       ),
       child: TextFormField(
+        controller: _LName,
         decoration: InputDecoration(
           hintText: 'Last Name',
           border: InputBorder.none,
@@ -88,6 +98,7 @@ class _FormScreenState extends State<FormScreen> {
         borderRadius: BorderRadius.circular(29),
       ),
       child: TextFormField(
+        controller: _CardNumber,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: 'Card Number',
@@ -96,6 +107,10 @@ class _FormScreenState extends State<FormScreen> {
         validator: (String? value) {
           if (value!.isEmpty) {
             return 'Card number is required';
+          } else if (value.length > 16) {
+            return 'Insert 16 digits';
+          } else if (value.length < 16) {
+            return 'Insert 16 digits';
           }
         },
         onChanged: (value) {
@@ -116,6 +131,7 @@ class _FormScreenState extends State<FormScreen> {
         borderRadius: BorderRadius.circular(29),
       ),
       child: TextFormField(
+        controller: _CVV,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: 'Security Code',
@@ -124,6 +140,10 @@ class _FormScreenState extends State<FormScreen> {
         validator: (String? value) {
           if (value!.isEmpty) {
             return 'Security code CVV is required';
+          } else if (value.length > 3) {
+            return 'Insert 3 digits';
+          } else if (value.length < 3) {
+            return 'Insert 3 digits';
           }
         },
         onChanged: (value) {
@@ -144,6 +164,7 @@ class _FormScreenState extends State<FormScreen> {
         borderRadius: BorderRadius.circular(29),
       ),
       child: TextFormField(
+        controller: _MM,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: 'MM',
@@ -152,6 +173,8 @@ class _FormScreenState extends State<FormScreen> {
         validator: (String? value) {
           if (value!.isEmpty) {
             return 'Month';
+          } else if (value.length > 2) {
+            return '2 digits';
           }
         },
         onChanged: (value) {
@@ -172,6 +195,7 @@ class _FormScreenState extends State<FormScreen> {
         borderRadius: BorderRadius.circular(29),
       ),
       child: TextFormField(
+        controller: _YY,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: 'YY',
@@ -180,6 +204,8 @@ class _FormScreenState extends State<FormScreen> {
         validator: (String? value) {
           if (value!.isEmpty) {
             return 'Year';
+          } else if (value.length > 2) {
+            return '2 digits';
           }
         },
         onChanged: (value) {
@@ -187,6 +213,15 @@ class _FormScreenState extends State<FormScreen> {
         },
       ),
     );
+  }
+
+  Future clearText() async {
+    _FName.clear();
+    _LName.clear();
+    _CardNumber.clear();
+    _CVV.clear();
+    _MM.clear();
+    _YY.clear();
   }
 
   @override
@@ -203,6 +238,7 @@ class _FormScreenState extends State<FormScreen> {
           context: context,
           builder: (context) {
             return Form(
+              key: _cardKey,
               child: Container(
                 height: size.height * 0.9,
                 child: Column(
@@ -212,6 +248,7 @@ class _FormScreenState extends State<FormScreen> {
                       children: [
                         IconButton(
                           onPressed: () {
+                            clearText();
                             Navigator.of(context).pop();
                           },
                           icon: Icon(
@@ -292,14 +329,26 @@ class _FormScreenState extends State<FormScreen> {
                     ),
                     RoundedButton(
                       press: () {
-                        events.add(CardDetails(
-                            LName: NewLName,
-                            FName: NewFName,
-                            CVV: NewCVV,
-                            YY: NewYY,
-                            CardNumber: NewCardNumber,
-                            MM: NewMM));
-                        Navigator.of(context).pop();
+                        if (_cardKey.currentState!.validate()) {
+                          events.add(CardDetails(
+                              LName: NewLName,
+                              FName: NewFName,
+                              CVV: NewCVV,
+                              YY: NewYY,
+                              CardNumber: NewCardNumber,
+                              MM: NewMM));
+                          Navigator.of(context).pop();
+                          clearText();
+                        }
+
+                        // events.add(CardDetails(
+                        //     LName: NewLName,
+                        //     FName: NewFName,
+                        //     CVV: NewCVV,
+                        //     YY: NewYY,
+                        //     CardNumber: NewCardNumber,
+                        //     MM: NewMM));
+                        // Navigator.of(context).pop();
                       },
                       text: 'Save',
                     ),
